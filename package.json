@@ -1,0 +1,32 @@
+{
+  "name": "MyBOT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "authors": [
+    "Java++",
+    "SymbioNoob"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "colors": "^1.4.0",
+    "discord.js": "^12.2.0",
+    "express": "^4.18.1",
+    "ffmpeg-static": "^4.2.6",
+    "figlet": "^1.5.0",
+    "fs": "0.0.1-security",
+    "mongoose": "^6.4.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.16",
+    "opusscript": "0.0.7",
+    "path": "^0.12.7",
+    "utf8": "^3.0.0",
+    "ytdl-core": "^3.2.0"
+  }
+}

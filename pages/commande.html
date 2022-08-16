@@ -1,0 +1,249 @@
+<?php
+session_start();
+?>
+<!doctype html>
+<html>
+    <head>
+       <meta charset="utf-8">
+	   <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	</head>
+    <body>
+		<header id="header">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<a href="index.php" class="navbar-brand">
+					<h3 class="px-5">
+						<i class="fas fa-shopping-basket"></i> Trivial Shop
+					</h3>
+				</a>
+				<button class="navbar-toggler"
+					type="button"
+						data-toggle="collapse"
+						data-target = "#navbarNavAltMarkup"
+						aria-controls="navbarNavAltMarkup"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</nav>
+		</header>
+		
+		<style>
+		ul {
+		  list-style-type: none;
+		  margin: 0;
+		  padding: 0;
+		  overflow: hidden;
+		  background-color: none;
+		  position: -webkit-sticky; /* Safari */
+		  position: sticky;
+		  top: 0;
+		}
+		
+		li {
+		  float: left;
+		}
+		
+		li a {
+		  display: block;
+		  color: white;
+		  text-align: center;
+		  padding: 20px 20px;
+		  text-decoration: none;
+		}
+		.active {
+		  background-color: white;
+		}
+		</style>
+    <h1>Commande</h1>
+        <div id="container">
+            <form id="form" method="POST">
+				<div>
+					<div>
+						<label for="demo-titre">Titre</label>
+					    <input type="text" name="demo-name" id="demo-titre" value="" placeholder="Ex: Plugin de Claim" required/>
+					</div>
+                    <div>
+						<label for="demo-titre">Tag Discord</label>
+					    <input type="text" name="demo-tag" id="demo-tag" value="" placeholder="Ex: Java++#8934" required/>
+					</div>
+					<div class="col-6 col-12-xsmall">
+						<label for="demo-titre">Lien CDC (cahier des charged)</label>
+						<input type="text" name="demo-cdc" id="demo-cdc" value="https://" required/>
+						<p>Create cdc: <a href="https://docs.google.com/document/u/0/" style="color: red;">ICI</a></p>
+			        </div>
+					<div class="col-12">
+						<label for="demo-message">Description</label>
+					    <textarea type="text" name="demo-message" id="demo-message" rows="6" placeholder="Ex: Plugin de claim avec commande (voir cahier de charges)..." required></textarea>
+					</div>
+				    <div class="col-12">
+						<label for="demo-category">Type de support</label>
+					    <select name="demo-category" id="demo-support">
+							<option value="Non défini">Non défini</option>
+							<option value="Bukkit">Bukkit</option>
+						    <option value="Paper">Paper</option>
+							<option value="Spigot">Spigot</option>
+							<option value="Forge">Forge</option>
+							<option value="Web">Web</option>
+							<option value="Autre">Autre</option>
+						</select>
+					</div>
+					<div class="col-12">
+						<label for="demo-category">Language</label>
+					    <select name="demo-category" id="demo-lang">
+							<option value="Non défini">Non défini</option>
+							<option value="C++">C++</option>
+							<option value="C#">C#</option>
+							<option value="Java">Java</option>
+							<option value="Trio Web (html,css,php)">Trio Web (html,css,php)</option>
+						    <option value="Node Js">Node Js</option>
+							<option value="Js">Js</option>
+							<option value="Autre">Autre</option>
+					    </select>
+					</div>
+					<div class="col-6 col-12-xsmall">
+						<label for="demo-name">Date de retour / death line</label>
+					    <input type="text" name="demo-name" id="demo-line" value=""  placeholder="Ex: 25/08/2006" required/>
+					</div>
+						<div class="col-6 col-12-xsmall">
+							<label for="demo-name">Budget</label>
+							<input type="text" name="demo-name" id="demo-budget" value="€"  placeholder="Ex: 150€" required/>
+							<p style="color: red;">Attention vous devez mettre votre budget max</p>
+					    </div>
+						<div class="col-12">
+							<ul class="actions">
+							    <li>
+                                    <input type="submit" value="Send Message" class="primary" />
+                                </li>
+							    <li>
+                                    <input type="reset" value="Reset"/>
+                                </li>
+							</ul>
+						</div>
+					</div>
+	            </form>
+        </div>
+
+        <script>
+			document.getElementById("form").addEventListener("submit", function(e) {
+				console.log('dataForm');
+		        e.preventDefault();
+                const titre = document.getElementById("demo-titre");
+			    const tag = document.getElementById("demo-tag");
+			    const message = document.getElementById("demo-message");
+			    const typeSupport = document.getElementById("demo-support");
+			    const lang = document.getElementById("demo-lang");
+			    const line = document.getElementById("demo-line");
+			    const budget = document.getElementById("demo-budget");
+			    const cdc = document.getElementById("demo-cdc");
+
+			    const dataForm = {
+				    title: titre.value,
+				    cdc: cdc.value,
+				    tag: tag.value,
+				    message: message.value,
+				    support: typeSupport.value,
+				    lang: lang.value,
+				    deathLine: line.value,
+				    budget: budget.value
+			    };
+
+				axios.post('/user', dataForm);
+				alert(`Merci pour votre commande !`)
+			});
+		</script>
+
+		<style>
+			img{
+    max-width: 100%;
+    height: auto;
+    background: lightblue;
+    background: radial-gradient(white 30%, lightblue 70%);
+}
+
+.fa-star,
+.fa-star-half{
+    color: yellowgreen;
+    padding: 3% 0;
+}
+
+#cart_count{
+    text-align: center;
+    padding: 10px;
+    border-radius: 3rem;
+}
+
+.shopping-cart{
+    padding: 10px;
+}
+
+.cart-items + .cart-items{
+    padding: 10px;
+}
+
+.price-details h6{
+    padding: 3% 2%;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+body{
+    background: #ffffff;
+    text-align: center;
+  }
+  #container{
+    margin:0 auto;
+    margin-top:10%;
+    height: 900px;
+    width: 900px;
+  }
+  /* Bordered form */
+  form {
+    padding: 30px;
+    border: 1px solid #1d1d1d;
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  #container h1{
+    width: 38%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+  }
+  
+  /* Full-width inputs */
+  input[type=text], input[type=password], textarea[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  input[type=submit],input[type=reset]  {
+    background-color: #131313;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  input[type=submit]:hover, input[type=reset]:hover {
+    background-color: white;
+    color: #131313;
+    border: 1px solid #131313;
+  }
+		</style>
+    </body>
+</html>
